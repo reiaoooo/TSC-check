@@ -1,29 +1,51 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<title>当落一括確認ツール</title>
 <style>
-body { font-family: sans-serif; padding: 20px; }
-textarea { width: 100%; height: 120px; }
-table { border-collapse: collapse; margin-top: 20px; width: 100%; }
-td, th { border: 1px solid #ccc; padding: 8px; }
+  .result-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    table-layout: fixed; /* 横に伸びすぎ防止 */
+  }
+
+  .result-table th, .result-table td {
+    border: 1px solid #ccc;
+    padding: 6px;
+    word-wrap: break-word; /* 長い文字を折り返す */
+    text-align: center;
+  }
+
+  .result-table th {
+    background: #f0f0f0;
+    font-weight: bold;
+  }
+
+  /* 当選 → 緑 */
+  .win {
+    background: #d8f5d0;
+  }
+
+  /* 落選 → 赤 */
+  .lose {
+    background: #f5d0d0;
+  }
+
+  /* 判定できない → グレー */
+  .unknown {
+    background: #eee;
+  }
+
+  /* スマホ対応 */
+  @media (max-width: 600px) {
+    .result-table {
+      font-size: 12px;
+    }
+    .result-table th, .result-table td {
+      padding: 4px;
+    }
+  }
+
+  .total-sum {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
 </style>
-</head>
-<body>
-
-<h2>当落一括確認ツール</h2>
-
-<label>電話番号（11桁）</label><br>
-<input id="tel" type="text" maxlength="11"><br><br>
-
-<label>受付番号（複数行OK）</label><br>
-<textarea id="entries"></textarea><br><br>
-
-<button id="run">一括確認する</button>
-
-<div id="result"></div>
-
-<script src="script.js"></script>
-</body>
-</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>当落一括確認ツール</title>
+<style>
+body { font-family: sans-serif; padding: 20px; }
+textarea { width: 100%; height: 120px; }
+table { border-collapse: collapse; margin-top: 20px; width: 100%; }
+td, th { border: 1px solid #ccc; padding: 8px; }
+</style>
+</head>
+<body>
+
+<h2>当落一括確認ツール</h2>
+
+<label>電話番号（11桁）</label><br>
+<input id="tel" type="text" maxlength="11"><br><br>
+
+<label>受付番号（複数行OK）</label><br>
+<textarea id="entries"></textarea><br><br>
+
+<button id="run">一括確認する</button>
+
+<div id="result"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

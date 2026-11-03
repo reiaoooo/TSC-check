@@ -18,8 +18,8 @@ async function checkOne(tel, receiptNo) {
   if (html.includes("当選")) result = "当選";
   if (html.includes("落選")) result = "落選";
 
-  // 当選した場合は詳細ページを取得
   let detail = null;
+
   if (result === "当選") {
     const detailUrlMatch = html.match(/href="([^"]*detail[^"]*)"/);
     if (detailUrlMatch) {
@@ -32,11 +32,18 @@ async function checkOne(tel, receiptNo) {
   return { result, detail };
 }
 
-// 詳細ページから必要な情報だけ抽出
+// ★ 玲有のページ構造に完全対応した解析関数
 function parseDetail(html) {
-  const datetime = html.match(/日時[^<]*<\/td><td[^>]*>([^<]+)/)?.[1] || "";
+  // 日時
+  const datetime = html.match(/日時<\/td>\s*<td[^>]*>([^<]+)/)?.[1] || "-";
+
+  // 枚数（例：3枚）
   const count = Number(html.match(/(\d+)枚/)?.[1] || 0);
+
+  // 単価（例：7,800円）
   const price = Number((html.match(/([\d,]+)円/)?.[1] || "0").replace(/,/g, ""));
+
+  // 合計
   const total = count * price;
 
   return { datetime, count, price, total };
@@ -81,11 +88,10 @@ document.getElementById("run").onclick = async () => {
 
     if (detail?.total) totalSum += detail.total;
 
-    await new Promise(res => setTimeout(res, 800)); // ブロック防止
+    await new Promise(res => setTimeout(res, 800));
   }
 
   html += `</table>`;
-
   html += `<h3 class="total-sum">総額：${totalSum}円</h3>`;
 
   document.getElementById("result").innerHTML = html;
